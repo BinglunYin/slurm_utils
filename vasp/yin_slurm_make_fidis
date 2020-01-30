@@ -1,0 +1,25 @@
+#!/bin/bash
+# B. Yin, 2016-02-17
+
+
+pwd
+
+j1=`grep -n "NCORE" ./INCAR | cut -d ":" -f1`
+sed $j1"s/.*/ NCORE = 28/" ./INCAR > ./temp
+mv ./temp ./INCAR
+
+
+
+j1=`grep -n "nodes=" ./sub.* | cut -d ":" -f1`
+sed $j1"s/.*/#SBATCH --nodes=8/" ./sub.* > ./temp
+mv ./temp ./sub.*
+
+j1=`grep -n "mem=" ./sub.* | cut -d ":" -f1`
+sed $j1"s/.*/#SBATCH --mem=127000/" ./sub.* > ./temp
+mv ./temp ./sub.*
+
+j1=`grep -n "ntasks-per-node=" ./sub.* | cut -d ":" -f1`
+sed $j1"s/.*/#SBATCH --ntasks-per-node=28/" ./sub.* > ./temp
+mv ./temp ./sub.*
+
+

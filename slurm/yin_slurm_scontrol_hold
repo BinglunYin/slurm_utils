@@ -1,0 +1,28 @@
+#!/bin/bash
+# B. Yin, 2020-01-30
+
+
+
+
+echo "Type the fisrt JobID, [ENTER]:"
+read ids
+
+
+echo "Type the last JobID, [ENTER]:"
+read ide
+
+
+echo "holding jobs from" $ids "to" $ide
+
+
+
+for ((i=$ids; i<=$ide; i=i+1))  
+do
+
+echo $i
+scontrol hold $i
+
+done
+
+
+
