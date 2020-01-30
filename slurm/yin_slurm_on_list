@@ -5,6 +5,9 @@
 
 my_on_list(){
 
+local mycmd ids ide i
+
+
 mycmd=$*
 echo $mycmd
 
