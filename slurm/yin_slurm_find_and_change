@@ -50,6 +50,12 @@ case "$1" in
         sub_change  $subf  'partition='  "$str"
         ;;
 
+    -srpl)
+        str="SRPL=$2 "
+        subf=sub.vasp
+        sub_change  $subf  'SRPL='  "$str"
+        ;;
+
 
     *)  echo "==>  Option $1 not recognized. Abort!" 
         exit
