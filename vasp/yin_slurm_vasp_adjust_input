@@ -41,20 +41,28 @@ fi
 
 case "$1" in
 
-    -d) echo "==>  adjusting to Deneb" 
+    -deneb) echo "==>  adjusting to Deneb" 
         ncore=16
         nodes=16
-        mem=62000
+        mem=0
         ntasks=16
         ;;
 
-    -f) echo "==>  adjusting to Fidis"
-        ncore=28
+    -fidis) echo "==>  adjusting to Fidis"
+        ncore=14
         nodes=8
-        mem=127000
+        mem=0
         ntasks=28
         ;;
    
+    -helve) echo "==>  adjusting to Helve"
+        ncore=18
+        nodes=8
+        mem=0
+        ntasks=36
+        ;;
+
+
     *)  echo "==>  Option $1 not recognized. Abort!" 
         exit
         ;;   
