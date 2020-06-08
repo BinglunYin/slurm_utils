@@ -2,7 +2,7 @@
 
 
 mybin=$1
-Rlevel=$2  # Low, etc
+Rlevel=$2  # RL, etc
 Rnotes=$3  # y_RL_notes, etc
 
 
@@ -21,7 +21,7 @@ relaxed=`grep 'reached required accuracy' POSCAR`
 while [  "$relaxed" = "" ]; do
     let Rstep=Rstep+1
     
-    echo -e "\n"`date` "\n Relax steps:" $Rlevel $Rstep "\n"
+    echo -e "\n"`date` "\n steps:" $Rlevel $Rstep "\n"
     
     cp CONTCAR POSCAR
     yin_vasp_univ_update_MAGMOM
@@ -36,5 +36,10 @@ cat CONTCAR >> $Rnotes; echo -e "\n" >> $Rnotes
 cat OUTCAR  >> $Rnotes
 
 cp CONTCAR POSCAR
+
+
+echo -e "\n#--------------------------"
+echo -e "#" $Rlevel "done!"
+echo -e "#--------------------------\n"
 
 

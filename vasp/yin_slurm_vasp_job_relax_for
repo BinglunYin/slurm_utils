@@ -3,7 +3,7 @@
 mybin=$1
 nstep=$2
 
-Rlevel="High"
+Rlevel="RH"
 
 
 #==============================
@@ -16,12 +16,12 @@ echo -e "#--------------------------\n"
 cp POSCAR CONTCAR
 
 for ((i=1; i<=$nstep; i=i+1)) ; do
-    str1="\n"`date` "\n STEP" $i"/"$nstep "\n"
-    echo -e $str1
-    echo -e $str1 >> y_oszicar
-    echo -e $str1 >> y_outcar
-    echo -e $str1 >> y_poscar
-  
+    
+    echo -e "\n"`date`       "\n STEP" $i"/"$nstep "\n"
+    echo -e "\n---------------\n STEP" $i"/"$nstep "\n---------------\n" >> y_oszicar
+    echo -e "\n---------------\n STEP" $i"/"$nstep "\n---------------\n" >> y_outcar
+    echo -e "\n---------------\n STEP" $i"/"$nstep "\n---------------\n" >> y_poscar
+ 
     cp CONTCAR POSCAR
     cat POSCAR >> y_poscar
     yin_vasp_univ_update_MAGMOM

@@ -1,5 +1,9 @@
 #!/bin/bash
 
+
+date
+SECONDS=0
+
 mybin=$1 ;   SRPL=$2
 
 FtolRL=$3 ;  KPRL=$4
@@ -7,40 +11,42 @@ FtolRM=$5 ;  KPRM=$6
 FtolRH=$7 ;  KPRH=$8 ;  nstep=$9
 
 
-echo -e "which -a $mybin :\n" `which -a $mybin` "\n"
-echo -e "SRPL:" $SRPL "\n"
-echo -e "Low:"  $FtolRL $KPRL "\n"
-echo -e "Med:"  $FtolRM $KPRM "\n"
-echo -e "High:" $FtolRH $KPRH  $nstep "\n"
-
-
-
-
 #==============================
-date 
-SECONDS=0
-yin_slurm_vasp_job_pre
+echo -e "\n\n==> enter setup \n"
+
+echo -e "mybin :\n"$mybin 
+echo -e "SRPL:" $SRPL 
+echo -e "Low:"  $FtolRL $KPRL 
+echo -e "Med:"  $FtolRM $KPRM 
+echo -e "High:" $FtolRH $KPRH  $nstep "\n" 
+
+yin_slurm_vasp_job_echo_info
 
 
-#==============================
+echo -e "\n"`date`"\n" >  y_oszicar
+echo -e "\n"`date`"\n" >  y_outcar
+echo -e "\n"`date`"\n initial POSCAR: \n" >> y_poscar
+cat POSCAR >> y_poscar
+
+
 if   [ "$SRPL" = "L" ] ; then
-  flagL=1  ; flagM=1;
-
+    flagL=1  ; flagM=1;
 elif [ "$SRPL" = "M" ] ; then
-  flagL=0  ; flagM=1;
-
+    flagL=0  ; flagM=1;
 elif [ "$SRPL" = "H" ] ; then
-  flagL=0  ; flagM=0;
+    flagL=0  ; flagM=0;
 fi
 
 
 #==============================
 if [ "$flagL" = "1" ] ; then
+    echo -e "\n\n==> enter Relax Low \n"
+
     yin_vasp_univ_find_and_change  -lreal    A  
     yin_vasp_univ_find_and_change  -ediffg   $FtolRL 
     yin_vasp_univ_find_and_change  -kp       $KPRL
     
-    yin_slurm_vasp_job_relax_while  $mybin  "Low"  "y_RL_notes" 
+    yin_slurm_vasp_job_relax_while  $mybin  "RL"  "y_RL_notes" 
 
     yin_vasp_univ_find_and_change  -lreal    A  
     yin_vasp_univ_find_and_change  -ediffg   $FtolRM
@@ -50,7 +56,9 @@ fi
 
 #==============================
 if [ "$flagM" = "1" ] ; then
-    yin_slurm_vasp_job_relax_while  $mybin  "Med"  "y_RM_notes" 
+    echo -e "\n\n==> enter Relax Med \n"
+
+    yin_slurm_vasp_job_relax_while  $mybin  "RM"  "y_RM_notes" 
 
     yin_vasp_univ_find_and_change  -lreal    F 
     yin_vasp_univ_find_and_change  -ediffg   $FtolRH
@@ -59,7 +67,8 @@ fi
 
 
 #==============================
-yin_slurm_vasp_relax_for  $mybin  $nstep  
+echo -e "\n\n==> enter Relax High \n"
+yin_slurm_vasp_job_relax_for  $mybin  $nstep  
 
 
 #==============================
