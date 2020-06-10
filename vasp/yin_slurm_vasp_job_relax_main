@@ -8,7 +8,7 @@ mybin=$1 ;   SRPL=$2
 
 FtolRL=$3 ;  KPRL=$4
 FtolRM=$5 ;  KPRM=$6
-FtolRH=$7 ;  KPRH=$8 ;  nstep=$9
+FtolRH=$7 ;  KPRH=$8 ;  LREALRH=$9 ;  nstep=${10}
 
 
 #==============================
@@ -18,15 +18,19 @@ echo -e "mybin :\n"$mybin
 echo -e "SRPL:" $SRPL 
 echo -e "Low:"  $FtolRL $KPRL 
 echo -e "Med:"  $FtolRM $KPRM 
-echo -e "High:" $FtolRH $KPRH  $nstep "\n" 
+echo -e "High:" $FtolRH $KPRH $LREALRH   $nstep "\n" 
 
 yin_slurm_vasp_job_echo_info
 
 
 echo -e "\n"`date`"\n" >  y_oszicar
 echo -e "\n"`date`"\n" >  y_outcar
-echo -e "\n"`date`"\n initial POSCAR: \n" >> y_poscar
-cat POSCAR >> y_poscar
+echo -e "\n"`date`"\n" >  y_poscar
+
+echo -e "\n"`date`"\n initial inputs: \n" >> y_initial
+cat INCAR   >> y_initial
+cat KPOINTS >> y_initial
+cat POSCAR  >> y_initial
 
 
 if   [ "$SRPL" = "L" ] ; then
@@ -60,7 +64,7 @@ if [ "$flagM" = "1" ] ; then
 
     yin_slurm_vasp_job_relax_while  $mybin  "RM"  "y_RM_notes" 
 
-    yin_vasp_univ_find_and_change  -lreal    F 
+    yin_vasp_univ_find_and_change  -lreal    $LREALRH 
     yin_vasp_univ_find_and_change  -ediffg   $FtolRH
     yin_vasp_univ_find_and_change  -kp       $KPRH
 fi
