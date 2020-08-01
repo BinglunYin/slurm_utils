@@ -45,10 +45,16 @@ case "$1" in
 
 
     -partition)
-        str="#SBATCH --partition=$2 "
+        if [ $2 == "default" ]; then
+            str="#  #SBATCH --partition=   " 
+        else
+            str="#SBATCH --partition=$2 "
+        fi
+
         subf=`ls sub.* | head -1`
         sub_change  $subf  'partition='  "$str"
         ;;
+
 
     -srpl)
         str="SRPL=$2 "
