@@ -23,9 +23,9 @@ echo -e "High:" $FtolRH $KPRH $LREALRH   $nstep "\n"
 yin_slurm_vasp_job_echo_info
 
 
-echo -e "\n"`date`"\n" >  y_oszicar
-echo -e "\n"`date`"\n" >  y_outcar
-echo -e "\n"`date`"\n" >  y_poscar
+echo -e "\n"`date`"\n" >   y_oszicar
+echo -e "\n"`date`"\n" >   y_outcar
+echo -e "\n"`date`"\n" >>  y_poscar
 
 echo -e "\n"`date`"\n initial inputs: \n" >> y_initial
 cat INCAR   >> y_initial
