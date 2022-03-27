@@ -49,15 +49,15 @@ fi
 if [ "$flagL" = "1" ] ; then
     echo -e "\n\n==> enter Relax Low \n"     >> $mylog 
 
-    yin_vasp_univ_find_and_change  -lreal    A  
-    yin_vasp_univ_find_and_change  -ediffg   $FtolRL 
-    yin_vasp_univ_find_and_change  -kp       $KPRL
+    yin_vasp_univ_find_and_change  -lreal    A           >> $mylog
+    yin_vasp_univ_find_and_change  -ediffg   $FtolRL     >> $mylog
+    yin_vasp_univ_find_and_change  -kp       $KPRL       >> $mylog
     
     yin_pbs_vasp_relax_while  "$mycmd"  "RL"  "y_RL_notes"  $mylog  
 
-    yin_vasp_univ_find_and_change  -lreal    A  
-    yin_vasp_univ_find_and_change  -ediffg   $FtolRM
-    yin_vasp_univ_find_and_change  -kp       $KPRM
+    yin_vasp_univ_find_and_change  -lreal    A           >> $mylog
+    yin_vasp_univ_find_and_change  -ediffg   $FtolRM     >> $mylog
+    yin_vasp_univ_find_and_change  -kp       $KPRM       >> $mylog
 fi
 
 
@@ -67,9 +67,9 @@ if [ "$flagM" = "1" ] ; then
 
     yin_pbs_vasp_relax_while  "$mycmd"  "RM"  "y_RM_notes"  $mylog 
 
-    yin_vasp_univ_find_and_change  -lreal    $LREALRH 
-    yin_vasp_univ_find_and_change  -ediffg   $FtolRH
-    yin_vasp_univ_find_and_change  -kp       $KPRH
+    yin_vasp_univ_find_and_change  -lreal    $LREALRH    >> $mylog
+    yin_vasp_univ_find_and_change  -ediffg   $FtolRH     >> $mylog
+    yin_vasp_univ_find_and_change  -kp       $KPRH       >> $mylog
 fi
 
 
@@ -79,7 +79,7 @@ yin_pbs_vasp_relax_for  "$mycmd"  $nstep  $mylog
 
 
 #==============================
-date
+date >> $mylog
 yin_pbs_job_echo_time  $SECONDS  $mylog  
 
 
