@@ -16,8 +16,9 @@ echo -e "#--------------------------\n"   >> $mylog
 
 
 
-yin_vasp_univ_find_and_change  -nsw    0  >> $mylog
-yin_vasp_univ_find_and_change  -isym   0  >> $mylog
+yin_vasp_univ_find_and_change  -nsw      0  >> $mylog
+yin_vasp_univ_find_and_change  -isym     0  >> $mylog
+yin_vasp_univ_find_and_change  -nelm   200  >> $mylog
 
 
     
